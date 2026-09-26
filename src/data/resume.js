@@ -22,7 +22,7 @@ export const experience = [
   {
     years: '2025 — Present',
     title: 'Mid-Level Developer',
-    org: 'Fintech & government-facing platforms',
+    org: 'MyBusyBee Inc.',
     stack: 'PHP, Laravel, Livewire, MySQL, jQuery, JavaScript, Bootstrap',
     bullets: [
       'Led full-stack development on a government-facing project, coordinating a team of 3 junior developers.',
@@ -34,7 +34,7 @@ export const experience = [
   {
     years: '2024 — 2025',
     title: 'Junior IT Consultant',
-    org: 'ERP consulting',
+    org: 'VPD Business Solutions Inc.',
     stack: 'PHP, Laravel, MySQL, jQuery, JavaScript, Bootstrap',
     bullets: [
       'Worked directly with 3 external client organizations to turn ERP requirements into technical specs.',
@@ -46,7 +46,7 @@ export const experience = [
   {
     years: '2023 — 2024',
     title: 'Junior Front-End Web Developer',
-    org: 'Product engineering',
+    org: 'BEESEE Global Technologies, Inc.',
     stack: 'React.js, JavaScript, TypeScript, Bootstrap',
     bullets: [
       'Built scalable front-end component architectures in React and TypeScript for core web applications.',
