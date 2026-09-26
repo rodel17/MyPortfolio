@@ -1,3 +1,5 @@
+const base = import.meta.env.BASE_URL
+
 export const profile = {
   name: 'Rodel Agocoy',
   role: 'Full-Stack Web Developer',
@@ -83,9 +85,9 @@ export const projects = [
     label: 'github.com/rodel17/automized-service-record',
     siteUrl: 'https://esr.depedcsjdm.org/', // e.g. 'https://your-live-demo.com' — leave empty if there isn't one
     screenshots: [
-      '/projects/project_1_1.png',
-      '/projects/project_1_2.png',
-      '/projects/project_1_3.png',
+      `${base}projects/project_1_1.png`,
+      `${base}projects/project_1_2.png`,
+      `${base}projects/project_1_3.png`,
     ],
   },
 ]
@@ -94,7 +96,22 @@ export const projects = [
 // `image` field below to '/certifications/<filename>', e.g. '/certifications/css-essentials.png'.
 // Leave `image: null` to show a placeholder box until you have the file.
 export const certifications = [
-  { title: 'CSS Essentials', issuer: 'CISCO Networking Academy', date: 'June 2026', image: '/certifications/css_2_cartificate.png' },
-  { title: 'Apply AI: Analyze Customer Reviews', issuer: 'CISCO Networking Academy', date: 'June 2026', image: '/certifications/apply_ai_certificate.png' },
-  { title: 'TOPCIT Certificate', issuer: 'TOPCIT', date: 'May 2023', image: '/certifications/topcit_certificate.png' },
+  { 
+    title: 'CSS Essentials', 
+    issuer: 'CISCO Networking Academy', 
+    date: 'June 2026', 
+    image: `${base}/certifications/css_2_cartificate.png`
+  },
+  { 
+    title: 'Apply AI: Analyze Customer Reviews', 
+    issuer: 'CISCO Networking Academy', 
+    date: 'June 2026', 
+    image: `${base}/certifications/apply_ai_certificate.png`
+  },
+  { 
+    title: 'TOPCIT Certificate', 
+    issuer: 'TOPCIT', 
+    date: 'May 2023', 
+    image: `${base}certifications/topcit_certificate.png`
+  },
 ]
