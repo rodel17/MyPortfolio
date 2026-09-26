@@ -5,6 +5,6 @@ import vue from '@vitejs/plugin-vue'
 // set base to '/<repo-name>/'. If deploying to <username>.github.io
 // (a "user site" repo), leave base as '/'.
 export default defineConfig({
-  // base: '/',
+  base: '/MyPortfolio/',
   plugins: [vue()],
 })
