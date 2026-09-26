@@ -39,3 +39,4 @@ Edit that file to change text, dates, or links — the components just render it
 - Vite
 - Tailwind CSS
 - IBM Plex Sans / IBM Plex Mono (Google Fonts)
+# MyPortfolio
