@@ -21,7 +21,7 @@ export const education = {
 export const experience = [
   {
     years: '2025 — Present',
-    title: 'Full-Stack Web Developer',
+    title: 'Mid-Level Developer',
     org: 'Fintech & government-facing platforms',
     stack: 'PHP, Laravel, Livewire, MySQL, jQuery, JavaScript, Bootstrap',
     bullets: [
@@ -33,7 +33,7 @@ export const experience = [
   },
   {
     years: '2024 — 2025',
-    title: 'Full-Stack Web Developer',
+    title: 'Junior IT Consultant',
     org: 'ERP consulting',
     stack: 'PHP, Laravel, MySQL, jQuery, JavaScript, Bootstrap',
     bullets: [
@@ -45,7 +45,7 @@ export const experience = [
   },
   {
     years: '2023 — 2024',
-    title: 'Front-End Web Developer',
+    title: 'Junior Front-End Web Developer',
     org: 'Product engineering',
     stack: 'React.js, JavaScript, TypeScript, Bootstrap',
     bullets: [
