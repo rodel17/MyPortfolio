@@ -11,6 +11,8 @@ export const profile = {
   summary:
     "I build and maintain full-stack web applications, from payment-integrated fintech systems to internal ERP tools. Most of my work sits in Laravel and Vue/React, with a habit of taking ownership from database schema to the interface the end user actually touches.",
   available: true, // toggles the "Open to new roles" badge
+  // profile photo in the nav; follows your GitHub avatar automatically
+  avatar: 'https://github.com/rodel17.png?size=96',
 }
 
 export const education = {

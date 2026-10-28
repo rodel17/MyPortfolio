@@ -1,5 +1,9 @@
 <script setup>
+import { ref } from 'vue'
 import { profile } from '../data/resume.js'
+
+// falls back to initials when there's no avatar or the image fails to load
+const avatarFailed = ref(!profile.avatar)
 
 const links = [
   { id: 'about', label: 'About' },
@@ -15,7 +19,14 @@ const initials = profile.name.split(' ').map((part) => part[0]).join('')
   <header class="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
     <nav class="mx-auto flex min-h-[64px] max-w-content items-center justify-between gap-6 px-6 sm:px-8">
       <a href="#top" class="flex shrink-0 items-center gap-2.5 text-[15px] font-semibold text-ink">
-        <span class="flex h-8 w-8 items-center justify-center rounded-full bg-accent font-serif text-[15px] italic text-surface">
+        <img
+          v-if="!avatarFailed"
+          :src="profile.avatar"
+          :alt="profile.name"
+          class="h-8 w-8 rounded-full object-cover ring-2 ring-accent-soft"
+          @error="avatarFailed = true"
+        />
+        <span v-else class="flex h-8 w-8 items-center justify-center rounded-full bg-accent font-serif text-[15px] italic text-surface">
           {{ initials }}
         </span>
         <span class="hidden sm:inline">{{ profile.name }}</span>
