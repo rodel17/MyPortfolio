@@ -2,22 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-feature-settings: 'liga' 1, 'kern' 1;
+  }
+
+  ::selection {
+    background-color: theme('colors.accent.DEFAULT');
+    color: theme('colors.surface');
+  }
+
+  :focus-visible {
+    outline: 2px solid theme('colors.accent.DEFAULT');
+    outline-offset: 3px;
+  }
 }
 
-body {
-  font-feature-settings: 'liga' 1, 'kern' 1;
+@layer components {
+  .btn-primary {
+    @apply inline-flex min-h-[44px] items-center rounded-lg bg-accent px-5 text-sm font-semibold text-surface transition-colors hover:bg-accent-dark;
+  }
+
+  .btn-secondary {
+    @apply inline-flex min-h-[44px] items-center rounded-lg border border-line-strong px-5 text-sm font-medium text-ink transition-colors hover:border-faint;
+  }
+
+  .label {
+    @apply font-mono text-[13px] text-faint;
+  }
 }
 
-::selection {
-  background-color: #2B5D9E;
-  color: #F7F6F2;
+/* soft dotted texture, fades out toward the bottom-left */
+.bg-dots {
+  background-image: radial-gradient(rgba(47, 111, 208, 0.22) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse at top right, #000 10%, transparent 70%);
+  mask-image: radial-gradient(ellipse at top right, #000 10%, transparent 70%);
 }
 
-:focus-visible {
-  outline: 2px solid #2B5D9E;
-  outline-offset: 3px;
+/* serif italic accent phrase, e.g. in the hero headline */
+.accent-phrase {
+  @apply font-serif text-[1.15em] italic text-accent;
+}
+
+/* used by the v-reveal directive in main.js */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

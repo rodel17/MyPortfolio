@@ -4,21 +4,29 @@ export default {
   theme: {
     extend: {
       colors: {
-        paper: '#F7F6F2',
-        ink: '#101B2D',
-        blueprint: {
-          DEFAULT: '#2B5D9E',
-          dark: '#1E3F6E',
-          line: '#C9D6E3',
+        paper: '#FBFBFA',
+        surface: '#FFFFFF',
+        line: {
+          DEFAULT: '#E6E8EC',
+          strong: '#D5D9DF',
         },
-        signal: '#D98A2B',
+        ink: '#1A1F26',
+        muted: '#525B67',
+        faint: '#6B7480',
+        accent: {
+          DEFAULT: '#2F6FD0',
+          dark: '#2558A8',
+          soft: '#EEF3FC',
+        },
+        ok: '#3E9B6A',
       },
       fontFamily: {
         sans: ['"IBM Plex Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
         mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       maxWidth: {
-        content: '52rem',
+        content: '70rem',
       },
     },
   },

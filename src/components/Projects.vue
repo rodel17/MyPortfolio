@@ -1,84 +1,84 @@
 <script setup>
-import { ref } from 'vue'
+import { reactive } from 'vue'
 import { projects } from '../data/resume.js'
+import PageSection from './PageSection.vue'
+import Lightbox from './Lightbox.vue'
 
-const activeImage = ref(null)
+const viewer = reactive({ images: [], index: null })
 
-function openImage(src, event) {
-  event.preventDefault()
-  event.stopPropagation()
-  activeImage.value = src
-}
-function closeImage() {
-  activeImage.value = null
+function openViewer(project) {
+  viewer.images = project.screenshots
+  viewer.index = 0
 }
 </script>
 
 <template>
-  <section class="mt-16">
-    <h2 class="text-xl font-semibold">Featured projects</h2>
-    <div class="mt-4 border-t border-blueprint-line">
-      <div
+  <PageSection id="work" index="04" label="Work">
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-6">
+      <article
         v-for="p in projects"
         :key="p.title"
-        class="border-b border-blueprint-line py-6"
+        class="flex flex-col overflow-hidden rounded-xl border border-line bg-surface transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-ink/5"
       >
-        <div
-          v-if="p.screenshots && p.screenshots.length"
-          class="grid gap-2"
-          :class="p.screenshots.length === 1 ? 'grid-cols-1' : 'grid-cols-2 sm:grid-cols-3'"
+        <!-- screenshot sits on a tinted, dotted backdrop like a framed print -->
+        <button
+          v-if="p.screenshots?.length"
+          type="button"
+          class="group relative block overflow-hidden border-b border-line bg-accent-soft px-6 pt-6"
+          :aria-label="`View ${p.title} screenshots`"
+          @click="openViewer(p)"
         >
-          <button
-            v-for="(src, i) in p.screenshots"
-            :key="i"
-            type="button"
-            @click="openImage(src, $event)"
-            class="aspect-[16/9] w-full overflow-hidden border border-blueprint-line bg-white"
+          <div class="bg-dots pointer-events-none absolute inset-0" aria-hidden="true"></div>
+          <img
+            :src="p.screenshots[0]"
+            :alt="`${p.title} screenshot`"
+            class="relative aspect-[16/10] w-full rounded-t-lg border border-b-0 border-line object-cover object-top shadow-lg shadow-ink/10 transition-transform duration-500 group-hover:-translate-y-1"
+          />
+          <span
+            v-if="p.screenshots.length > 1"
+            class="absolute bottom-3 right-3 rounded-full border border-line bg-surface/95 px-2.5 py-1 font-mono text-[11px] text-muted shadow-sm"
           >
-            <img :src="src" :alt="`${p.title} screenshot ${i + 1}`" class="h-full w-full object-cover transition-transform hover:scale-[1.03]" />
-          </button>
-        </div>
-        <div
-          v-else
-          class="flex aspect-[16/9] w-full flex-col items-center justify-center gap-1 border border-dashed border-blueprint-line text-center"
-        >
-          <span class="font-mono text-xs text-ink/40">project screenshots</span>
-          <span class="font-mono text-[11px] text-ink/30">/public/projects/</span>
+            {{ p.screenshots.length }} screenshots
+          </span>
+        </button>
+        <div v-else class="flex aspect-[16/10] items-center justify-center border-b border-dashed border-line-strong font-mono text-xs text-faint">
+          screenshots go in /public/projects/
         </div>
 
-        <a :href="p.url" target="_blank" rel="noopener" class="group mt-4 block">
-          <h3 class="text-lg font-medium group-hover:text-blueprint">{{ p.title }}</h3>
-          <p class="mt-1 text-sm text-ink/60">{{ p.role }}</p>
-          <p class="mt-2 max-w-[60ch] text-[15px] leading-relaxed text-ink/80">{{ p.description }}</p>
-          <p class="mt-3 font-mono text-xs text-blueprint">{{ p.label }}</p>
-        </a>
+        <div class="flex grow flex-col gap-2.5 p-6">
+          <h3 class="text-lg font-semibold leading-snug">{{ p.title }}</h3>
+          <dl class="grid grid-cols-[auto_1fr] items-center gap-x-3 gap-y-1.5 text-[13px]">
+            <dt class="font-mono text-[11px] uppercase tracking-wider text-faint">Role</dt>
+            <dd class="text-muted">{{ p.role }}</dd>
+            <template v-if="p.client">
+              <dt class="font-mono text-[11px] uppercase tracking-wider text-faint">Client</dt>
+              <dd class="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-muted">
+                {{ p.client }}
+                <span v-if="p.inUse" class="inline-flex items-center gap-1.5 rounded-full bg-ok/10 px-2 py-0.5 font-mono text-[11px] text-[#2B7552]">
+                  <span class="h-1.5 w-1.5 rounded-full bg-ok"></span>
+                  In active use
+                </span>
+              </dd>
+            </template>
+          </dl>
+          <p class="text-[15px] leading-relaxed text-muted">{{ p.description }}</p>
 
-        <a
-          v-if="p.siteUrl"
-          :href="p.siteUrl"
-          target="_blank"
-          rel="noopener"
-          @click.stop
-          class="mt-2 inline-block font-mono text-xs text-signal hover:text-blueprint"
-        >
-          View live site →
-        </a>
-      </div>
+          <div v-if="p.stack?.length" class="mt-2">
+            <p class="font-mono text-[11px] uppercase tracking-wider text-faint">Tech stack</p>
+            <ul class="mt-2 flex flex-wrap gap-1.5">
+              <li v-for="tech in p.stack" :key="tech" class="rounded-md border border-line bg-paper px-2 py-0.5 font-mono text-xs text-muted">
+                {{ tech }}
+              </li>
+            </ul>
+          </div>
+          <div class="mt-auto flex flex-wrap gap-5 pt-3 text-sm font-medium">
+            <a v-if="p.siteUrl" :href="p.siteUrl" target="_blank" rel="noopener" class="text-accent hover:text-accent-dark">Live site ↗</a>
+            <a :href="p.url" target="_blank" rel="noopener" class="text-muted hover:text-ink">Source ↗</a>
+          </div>
+        </div>
+      </article>
     </div>
 
-    <div
-      v-if="activeImage"
-      @click="closeImage"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-ink/80 p-6"
-    >
-      <button
-        @click="closeImage"
-        aria-label="Close image"
-        class="absolute right-6 top-6 flex h-9 w-9 items-center justify-center border border-paper/40 text-paper hover:border-paper"
-      >
-        ✕
-      </button>
-      <img :src="activeImage" alt="Enlarged screenshot" class="max-h-full max-w-full object-contain" />
-    </div>
-  </section>
+    <Lightbox :images="viewer.images" v-model:index="viewer.index" alt="Project screenshot" />
+  </PageSection>
 </template>

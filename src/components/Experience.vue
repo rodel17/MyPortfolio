@@ -1,42 +1,44 @@
 <script setup>
 import { experience } from '../data/resume.js'
+import PageSection from './PageSection.vue'
 </script>
 
 <template>
-  <section class="mt-16">
-    <h2 class="text-xl font-semibold">Experience</h2>
-    <div class="mt-4 border-t border-blueprint-line"></div>
-
-    <ol class="relative">
-      <!-- single continuous rail -->
-      <div
-        class="absolute left-0 top-8 bottom-8 w-px -translate-x-1/2 bg-blueprint-line"
-        aria-hidden="true"
-      ></div>
-
-      <li
+  <PageSection id="experience" index="02" label="Experience">
+    <!-- timeline: the left border is the rail, each job gets a dot on it -->
+    <div class="ml-1 space-y-10 border-l border-line">
+      <article
         v-for="job in experience"
         :key="job.title + job.years"
-        class="relative border-b border-blueprint-line py-7 pl-6 last:border-b-0 sm:pl-8"
+        class="flex flex-wrap gap-x-8 gap-y-2 pl-7"
       >
-        <span
-          class="absolute left-0 top-8 h-2 w-2 -translate-x-1/2 rounded-full bg-blueprint"
-          aria-hidden="true"
-        ></span>
-
-        <p class="font-mono text-xs text-blueprint">{{ job.years }}</p>
-        <h3 class="mt-1 text-lg font-medium">{{ job.title }}</h3>
-        <p class="text-sm text-ink/60">{{ job.org }}</p>
-
-        <ul class="mt-3 space-y-1.5">
-          <li v-for="b in job.bullets" :key="b" class="flex gap-2 text-[15px] leading-snug text-ink/80">
-            <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-ink/30"></span>
-            <span>{{ b }}</span>
-          </li>
-        </ul>
-
-        <p class="mt-3 font-mono text-xs text-ink/45">{{ job.stack }}</p>
-      </li>
-    </ol>
-  </section>
+        <div class="relative flex-[0_0_140px]">
+          <span
+            class="absolute -left-[32px] top-[7px] h-[9px] w-[9px] rounded-full"
+            :class="job.years.includes('Present') ? 'bg-accent ring-4 ring-accent/15' : 'border-2 border-line-strong bg-paper'"
+            aria-hidden="true"
+          ></span>
+          <p class="mt-0.5 font-mono text-[13px]" :class="job.years.includes('Present') ? 'text-accent' : 'text-faint'">
+            {{ job.years }}
+          </p>
+        </div>
+        <div class="min-w-0 flex-[1_1_400px]">
+          <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <h3 class="text-lg font-semibold">{{ job.title }}</h3>
+            <span
+              v-if="job.years.includes('Present')"
+              class="rounded-full bg-accent-soft px-2.5 py-0.5 font-mono text-[11px] text-accent"
+            >
+              Current
+            </span>
+          </div>
+          <p class="mt-0.5 text-[15px] text-muted">{{ job.org }}</p>
+          <ul class="mt-3.5 list-disc space-y-2 pl-[18px] text-[15px] leading-relaxed text-muted marker:text-accent/50">
+            <li v-for="b in job.bullets" :key="b">{{ b }}</li>
+          </ul>
+          <p class="mt-3.5 font-mono text-xs text-faint">{{ job.stack.split(', ').join(' · ') }}</p>
+        </div>
+      </article>
+    </div>
+  </PageSection>
 </template>
